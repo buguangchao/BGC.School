@@ -1,0 +1,20 @@
+﻿@using BGC.School.Application.ViewModels;
+@model IList<StudentGroup>
+
+<h3>@ViewData["Message"]</h3>
+<table class="table">
+    <thead>
+        <tr>
+            <th>登记日期</th>
+            <th>人数</th>
+        </tr>
+    </thead>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>@Html.DisplayFor(p => item.EnrollmentDate)</td>
+            <td>@Html.DisplayFor(p => item.Count)</td>
+        </tr>
+    }
+
+</table>
