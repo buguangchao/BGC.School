@@ -48,7 +48,8 @@ namespace BGC.School.Controllers
         // GET: Courses/Create
         public IActionResult Create()
         {
-            ViewData["DepartmentId"] = new SelectList(_context.Department, "Id", "Id");
+            //ViewData["DepartmentId"] = new SelectList(_context.Department, "Id", "Id");
+            DropdwonList();
             return View();
         }
 
@@ -82,7 +83,8 @@ namespace BGC.School.Controllers
             {
                 return NotFound();
             }
-            ViewData["DepartmentId"] = new SelectList(_context.Department, "Id", "Id", course.DepartmentId);
+            DropdwonList(course.DepartmentId);
+            //ViewData["DepartmentId"] = new SelectList(_context.Department, "Id", "Id", course.DepartmentId);
             return View(course);
         }
 
@@ -155,6 +157,13 @@ namespace BGC.School.Controllers
         private bool CourseExists(int id)
         {
             return _context.Courses.Any(e => e.Id == id);
+        }
+
+        private void DropdwonList(object selectedDepartment=null)
+        {
+            var departments = from p in _context.Department orderby p.Name select p;
+
+            ViewBag.DepartmentId = new SelectList(departments, "Id", "Name", selectedDepartment);
         }
     }
 }
