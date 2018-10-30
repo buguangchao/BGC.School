@@ -24,25 +24,28 @@ namespace BGC.School.EntityFramework.Data
                 {
                     context.Students.Add(s);
                 }
+                context.SaveChanges();
             }
 
             if (!context.Teachers.Any())
             {
-                var t1 = new Teacher { Name = "test", EnrollDate = DateTime.Now };
-                var t2 = new Teacher { Name = "test", EnrollDate = DateTime.Now };
+                var t1 = new Teacher { Name = "t1", EnrollDate = DateTime.Now };
+                var t2 = new Teacher { Name = "t2", EnrollDate = DateTime.Now };
+
                 context.Teachers.Add(t1);
                 context.Teachers.Add(t2);
-
+                context.SaveChanges();
                 if (!context.Department.Any())
                 {
-                    var d1 = new Department { Name = "test", TeacherId =t1.Id};
-                    var d2 = new Department { Name = "test", TeacherId =t2.Id};
+                    var d1 = new Department { Name = "d1", TeacherId = t1.Id };
+                    var d2 = new Department { Name = "d2", TeacherId = t2.Id };
                     context.Department.Add(d1);
                     context.Department.Add(d2);
                 }
+                context.SaveChanges();
             }
 
-                if (!context.Courses.Any())
+            if (!context.Courses.Any())
             {
                 var courses = new Course[] {
                 new Course{  Title="数学", Credits=80,DepartmentId=1},
@@ -53,9 +56,8 @@ namespace BGC.School.EntityFramework.Data
                 {
                     context.Courses.Add(c);
                 }
+                context.SaveChanges();
             }
-
-            context.SaveChanges();
 
             var enrollments = new Enrollment[] {
                 new Enrollment{ StudentId=1,CourseId=1,Grade=CourseGrade.A},
